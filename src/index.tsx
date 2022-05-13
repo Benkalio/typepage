@@ -26,11 +26,19 @@ const App = () => {
   }, []);
 
   // show code anytime a user clicks button 
-  const onClick = () => {
+  const onClick = async () => {
     if (!ref.current) {
-      return console.log(ref.current);
+      return;
     }
-  }
+
+    //this is to transpile input 
+    const result = await ref.current.transform(input, {
+      //this tell esbuild the code to transpile
+      //in this case jsx
+      loader: 'jsx',
+      target: 'es2015'
+    });
+  };
 
   return (
     <div>
