@@ -38,6 +38,8 @@ const App = () => {
       loader: 'jsx',
       target: 'es2015'
     });
+
+    setCode(result.code);
   };
 
   return (
