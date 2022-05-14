@@ -2,6 +2,7 @@ import * as esbuild from 'esbuild-wasm';
 import { useState, useEffect, useRef } from "react";
 // import ReactDOM from "react-dom";
 import { render } from 'react-dom';
+import { unpkgPathPlugin } from './plugins/unpkg-path-plugin';
 
 
 
@@ -32,14 +33,19 @@ const App = () => {
     }
 
     //this is to transpile input 
-    const result = await ref.current.transform(input, {
-      //this tell esbuild the code to transpile
-      //in this case jsx
-      loader: 'jsx',
-      target: 'es2015'
+    const result = await ref.current.build({
+      input: ['index.js'],
+      bundle: true,
+      write: false,
+      plugins: [unpkgPathPlugin()]
+      
+      // //this tell esbuild the code to transpile
+      // //in this case jsx
+      // loader: 'jsx',
+      // target: 'es2015'
     });
-
-    setCode(result.code);
+    
+    setCode(result.outputFiles[0].text);
   };
 
   return (
