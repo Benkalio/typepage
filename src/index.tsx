@@ -34,7 +34,7 @@ const App = () => {
 
     //this is to transpile input 
     const result = await ref.current.build({
-      input: ['index.js'],
+      entryPoints: ['index.js'],
       bundle: true,
       write: false,
       plugins: [unpkgPathPlugin()]
