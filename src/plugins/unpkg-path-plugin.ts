@@ -10,6 +10,14 @@ export const unpkgPathPlugin = () => {
         if (args.paths === 'index.js') {
           return { path: args.path, namespace: 'a' };
         }
+      
+        // Relative file check 
+        if (args.path.includes('./') || args.path.includes('../')) {
+          return {
+            namespace: 'a',
+            path: new URL(args.path, args.importer + '/').href
+          };
+        }
 
         return {
           namespace: 'a',
