@@ -42,8 +42,6 @@ export const unpkgPathPlugin = () => {
         }
 
         const { data, request } = await axios.get(args.path);
-        // console.log(request);
-        
         return {
           loader: 'jsx',
           contents: data,

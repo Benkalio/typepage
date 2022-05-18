@@ -1,6 +1,5 @@
 import * as esbuild from 'esbuild-wasm';
 import { useState, useEffect, useRef } from "react";
-// import ReactDOM from "react-dom";
 import { render } from 'react-dom';
 import { unpkgPathPlugin } from './plugins/unpkg-path-plugin';
 
@@ -19,7 +18,7 @@ const App = () => {
   const startService = async () => {
     ref.current = await esbuild.startService({
       worker: true,
-      wasmURL: '/esbuild.wasm'
+      wasmURL: '/esbuild.wasm',
     });
   }
   useEffect(() => {
@@ -49,7 +48,10 @@ const App = () => {
 
   return (
     <div>
-      <textarea value={input} onChange={(e) => setInput(e.target.value)}></textarea>
+      <textarea
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+      ></textarea>
       <div>
         <button onClick={onClick}>Submit</button>
       </div>
