@@ -32,7 +32,7 @@ export const unpkgPathPlugin = () => {
           return {
             loader: 'jsx',
             contents: `
-              const message = require('react-dom');
+              const message = require('lodash');
               console.log(message);
             `,
           };
