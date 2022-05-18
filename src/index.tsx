@@ -37,12 +37,11 @@ const App = () => {
       entryPoints: ['index.js'],
       bundle: true,
       write: false,
-      plugins: [unpkgPathPlugin()]
-      
-      // //this tell esbuild the code to transpile
-      // //in this case jsx
-      // loader: 'jsx',
-      // target: 'es2015'
+      plugins: [unpkgPathPlugin()],
+      define: {
+        'process.env.NODE.ENV': '"production"',
+        global: 'window',
+      },
     });
     
     setCode(result.outputFiles[0].text);
