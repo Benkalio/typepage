@@ -16,19 +16,17 @@ export const unpkgPathPlugin = (inputCode: string) => {
         return { path: 'index.js', namespace: 'a' };
       });
 
-      build.onResolve({ filter: /.*/ }, async (args: any) => {
+      build.onResolve({ filter: /^\.+\// }, (args: any) => {
+        return {
+          namespace: 'a',
+          path: new URL(
+            args.path,
+            'https://unpkg.com' + args.resolveDir + './'
+          ).href
+        };
+      });
       
-        // Relative file check 
-        if (args.path.includes('./') || args.path.includes('../')) {
-          return {
-            namespace: 'a',
-            path: new URL(
-              args.path,
-              'https://unpkg.com' + args.resolveDir + './'
-            ).href
-          };
-        }
-
+      build.onResolve({ filter: /.*/ }, async (args: any) => {
         return {
           namespace: 'a',
           path: `https://unpkg.com/${args.path}`
