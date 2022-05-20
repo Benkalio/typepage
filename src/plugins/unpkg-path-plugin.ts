@@ -8,16 +8,7 @@ const fileCache = localForage.createInstance({
   name: 'filecache'
 });
 
-// (async () => {
-//   await fileCache.setItem('color', 'red');
-
-//   const color = await fileCache.getItem('color');
-
-//   console.log(color);
-  
-// })()
-
-export const unpkgPathPlugin = () => {
+export const unpkgPathPlugin = (inputCode: string) => {
   return {
     name: 'unpkg-path-plugin',
     setup(build: esbuild.PluginBuild) {
@@ -50,11 +41,7 @@ export const unpkgPathPlugin = () => {
         if (args.path === 'index.js') {
           return {
             loader: 'jsx',
-            contents: `
-              import React, { useState } from 'react-select';
-              import ReactDOM from 'react-dom';
-              console.log(React, useState, ReactDOM);
-            `,
+            contents: inputCode,
           };
         };
 
