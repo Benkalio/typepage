@@ -8,14 +8,14 @@ const fileCache = localForage.createInstance({
   name: 'filecache'
 });
 
-(async () => {
-  await fileCache.setItem('color', 'red');
+// (async () => {
+//   await fileCache.setItem('color', 'red');
 
-  const color = await fileCache.getItem('color');
+//   const color = await fileCache.getItem('color');
 
-  console.log(color);
+//   console.log(color);
   
-})()
+// })()
 
 export const unpkgPathPlugin = () => {
   return {
@@ -56,9 +56,16 @@ export const unpkgPathPlugin = () => {
               console.log(React, useState, ReactDOM);
             `,
           };
-        }
+        };
+
+        // Check to see if we have already fetched this file
+        // and if it is in the cache
+
+        // if it is, return it immediately
 
         const { data, request } = await axios.get(args.path);
+        // store response in cache 
+
         return {
           loader: 'jsx',
           contents: data,
