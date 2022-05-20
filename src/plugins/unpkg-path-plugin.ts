@@ -1,6 +1,22 @@
 import * as esbuild from 'esbuild-wasm';
 import axios from 'axios';
- 
+import localForage, { INDEXEDDB } from 'localforage';
+
+// USING OBJECT TO INTERACT WITH AN INSTANCE OF AN INDEXEDDB DATABASE IN THE BROWSER 
+// using filecache to get and set and item inside a database
+const fileCache = localForage.createInstance({
+  name: 'filecache'
+});
+
+(async () => {
+  await fileCache.setItem('color', 'red');
+
+  const color = await fileCache.getItem('color');
+
+  console.log(color);
+  
+})()
+
 export const unpkgPathPlugin = () => {
   return {
     name: 'unpkg-path-plugin',
