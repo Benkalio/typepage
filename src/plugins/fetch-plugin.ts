@@ -19,20 +19,19 @@ export const fetchPlugin = (inputCode: string) => {
         }
       });
 
+      build.onLoad({ filter: /.*/ }, async (args: any) => {
+      // Check to see if we have already fetched this file
+      // and if it is in the cache
+      // if it is, return it immediately  
+      const cachedResult = await fileCache.getItem<esbuild.OnLoadResult>(args.path);
+
+      if (cachedResult) {
+        return cachedResult;
+      }
+    })
+
       build.onLoad({ filter: /.css$/ }, async (args: any) => {
-
-        // Check to see if we have already fetched this file
-        // and if it is in the cache
-        // if it is, return it immediately  
-        const cachedResult = await fileCache.getItem<esbuild.OnLoadResult>(args.path);
-
-        if (cachedResult) {
-          return cachedResult;
-        }
-
         const { data, request } = await axios.get(args.path);
-
-        // const fileType = args.path.match(/.css$/) ? 'css' : 'jsx'        
 
         // Replacing the terminated quote in the css import
         const escaped = data
@@ -60,16 +59,6 @@ export const fetchPlugin = (inputCode: string) => {
       }); 
 
       build.onLoad({ filter: /.*/ }, async (args: any) => {
-
-        // Check to see if we have already fetched this file
-        // and if it is in the cache
-        // if it is, return it immediately  
-        const cachedResult = await fileCache.getItem<esbuild.OnLoadResult>(args.path);
-
-        if (cachedResult) {
-          return cachedResult;
-        }
-
         const { data, request } = await axios.get(args.path);
         
         const result: esbuild.OnLoadResult = {
