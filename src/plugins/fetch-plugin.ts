@@ -3,7 +3,7 @@ import axios from 'axios';
 import localForage, { INDEXEDDB } from 'localforage';
 
 // USING OBJECT TO INTERACT WITH AN INSTANCE OF AN INDEXEDDB DATABASE IN THE BROWSER 
-// using filecache to get and set and item inside a database
+// using filecache to get and set an item inside a database
 const fileCache = localForage.createInstance({
   name: 'filecache'
 });
@@ -24,17 +24,19 @@ export const fetchPlugin = (inputCode: string) => {
 
         // Check to see if we have already fetched this file
         // and if it is in the cache
-        const cachedResult = await fileCache.getItem<esbuild.OnLoadResult>(args.path);
-
         // if it is, return it immediately  
-        if (cachedResult){
-          return cachedResult;
-        }
+        // const cachedResult = await fileCache.getItem<esbuild.OnLoadResult>(args.path);
+
+        // if (cachedResult) {
+        //   return cachedResult;
+        // }
 
         const { data, request } = await axios.get(args.path);
-        
+
+        const loader = args.path.match(/.css$/) ? 'css' : 'jsx'        
+
         const result: esbuild.OnLoadResult = {
-          loader: 'jsx',
+          loader,
           contents: data,
           resolveDir: new URL('./', request.responseURL).pathname,
         };
@@ -46,4 +48,4 @@ export const fetchPlugin = (inputCode: string) => {
       });
     }
   }
-}
+};

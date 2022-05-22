@@ -10,7 +10,7 @@ const App = () => {
   const [input, setInput] = useState('');
   
   // this state is the output of the transpiled code from ESbuild 
-  // displayed in the pre>
+  // displayed in <pre> tag
   const [code, setCode] = useState('');
   
   // esbuild wasm setup

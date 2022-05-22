@@ -1,5 +1,8 @@
 {
   "cSpell.words": [
-    "esbuild"
+    "esbuild",
+    "filecache",
+    "INDEXEDDB",
+    "localforage"
   ]
 }
