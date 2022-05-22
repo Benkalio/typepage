@@ -35,11 +35,17 @@ export const fetchPlugin = (inputCode: string) => {
 
         const fileType = args.path.match(/.css$/) ? 'css' : 'jsx'        
 
+        // Replacing the terminated quote in the css import
+        const escaped = data
+          .replace(/\n/g, '')
+          .replace(/"/g, '\\"')
+          .replace(/'/g, "\\'");
+        
         // Strategy to import css files and bundle it with esbuild 
         const contents = fileType === 'css'
           ? `
             const style = document.createElement('style');
-            style.innerText = 'body { background-color: "red" }';
+            style.innerText = '${escaped}';
             document.head.appendChild(style);
           `
           : data;
