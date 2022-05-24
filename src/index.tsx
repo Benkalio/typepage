@@ -64,9 +64,13 @@ const App = () => {
         <button onClick={onClick}>Submit</button>
       </div>
       <pre>{code}</pre>
-      <iframe title="title" sandbox='allow-same-origin' src="/test.html" />
+      <iframe title="title" sandbox='allow-same-origin' srcDoc={html} />
     </div>
   );
 }
+
+const html = `
+  <h1>Local HTML doc</h1>
+;`
 
 render(<App />, document.querySelector('#root'))
