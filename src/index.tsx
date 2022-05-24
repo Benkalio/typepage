@@ -45,14 +45,13 @@ const App = () => {
     });
     
     setCode(result.outputFiles[0].text);
-
-    // execute arbitrary js stored in a string
-    try {
-      eval(result.outputFiles[0].text);
-    } catch (error) {
-      alert(error)
-    }
   };
+
+  const html = `
+    <script>
+      ${code}
+    </script>
+  `;
 
   return (
     <div>
@@ -64,13 +63,9 @@ const App = () => {
         <button onClick={onClick}>Submit</button>
       </div>
       <pre>{code}</pre>
-      <iframe title="title" sandbox='allow-same-origin' srcDoc={html} />
+      <iframe title="title" sandbox="allow-scripts" srcDoc={html} />
     </div>
   );
-}
-
-const html = `
-  <h1>Local HTML doc</h1>
-;`
+};
 
 render(<App />, document.querySelector('#root'))
