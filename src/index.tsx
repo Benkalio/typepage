@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { render } from 'react-dom';
 import { unpkgPathPlugin } from './plugins/unpkg-path-plugin';
 import { fetchPlugin } from './plugins/fetch-plugin';
-
+import CodeEditor from './components/code-editor';
 
 const App = () => {
   const ref = useRef<any>();
@@ -42,7 +42,8 @@ const App = () => {
       bundle: true,
       write: false,
       plugins: [
-        unpkgPathPlugin(), fetchPlugin(input)],
+        unpkgPathPlugin(), fetchPlugin(input)
+      ],
       define: {
         'process.env.NODE.ENV': '"production"',
         global: 'window',
@@ -67,8 +68,8 @@ const App = () => {
               eval(event.data);
             } catch (err) {
               const root = document.querySelector('#root');
-              root.innerHTML = '<div style="color: red;"><h4>Runtime Error</h4>' + err + '</div>'
-              throw err;
+              root.innerHTML = '<div style="color: red;"><h4>Runtime Error</h4>' + err + '</div>';
+              console.error(err);
             }
           }, false);
         </script>
@@ -78,6 +79,7 @@ const App = () => {
 
   return (
     <div>
+      <CodeEditor />
       <textarea
         value={input}
         onChange={(e) => setInput(e.target.value)}
