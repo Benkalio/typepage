@@ -12,7 +12,8 @@ const App = () => {
   
   // this state is the output of the transpiled code from ESbuild 
   // displayed in <pre> tag
-  const [code, setCode] = useState('');
+  // const [code, setCode] = useState('');
+
   
   // esbuild wasm setup
   // get esbuild from public file
@@ -32,7 +33,7 @@ const App = () => {
       return;
     }
 
-    // Refreshing iframe after each code transpile
+    // Resetting content in the iframe after each code transpile
     iframe.current.srcdoc = html;
 
     // bundling process: this is to transpile input 
@@ -84,8 +85,13 @@ const App = () => {
       <div>
         <button onClick={onClick}>Submit</button>
       </div>
-      <pre>{code}</pre>
-      <iframe ref={iframe} title="title" sandbox="allow-scripts" srcDoc={html} />
+      {/* <pre>{code}</pre> */}
+      <iframe
+        ref={iframe}
+        title="title"
+        sandbox="allow-scripts"
+        srcDoc={html}
+      />
     </div>
   );
 };
