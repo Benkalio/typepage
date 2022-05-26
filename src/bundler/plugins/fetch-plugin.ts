@@ -1,8 +1,7 @@
 import * as esbuild from 'esbuild-wasm';
 import axios from 'axios';
-import localForage, { INDEXEDDB } from 'localforage';
+import localForage from 'localforage';
 
-// USING OBJECT TO INTERACT WITH AN INSTANCE OF AN INDEXEDDB DATABASE IN THE BROWSER 
 // using filecache to get and set an item inside a database
 const fileCache = localForage.createInstance({
   name: 'filecache'
@@ -20,15 +19,17 @@ export const fetchPlugin = (inputCode: string) => {
       });
 
       build.onLoad({ filter: /.*/ }, async (args: any) => {
-      // Check to see if we have already fetched this file
-      // and if it is in the cache
-      // if it is, return it immediately  
-      const cachedResult = await fileCache.getItem<esbuild.OnLoadResult>(args.path);
+        /* 
+        Check to see if we have already fetched this file
+        and if it is in the cache
+        if it is, return it immediately  
+        */
+        const cachedResult = await fileCache.getItem<esbuild.OnLoadResult>(args.path);
 
-      if (cachedResult) {
-        return cachedResult;
-      }
-    })
+        if (cachedResult) {
+          return cachedResult;
+        }
+      });
 
       build.onLoad({ filter: /.css$/ }, async (args: any) => {
         const { data, request } = await axios.get(args.path);

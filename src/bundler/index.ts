@@ -20,7 +20,7 @@ const bundle = async (rawCode: string) => {
       unpkgPathPlugin(), fetchPlugin(rawCode)
     ],
     define: {
-      'process.env.NODE.ENV': '"production"',
+      'process.env.NODE_ENV': '"production"',
       global: 'window',
     },
   });
