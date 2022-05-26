@@ -1,5 +1,4 @@
 import { render } from 'react-dom';
-
 import 'bulmaswatch/superhero/bulmaswatch.min.css';
 import { useState } from "react";
 import bundle from './bundler';
