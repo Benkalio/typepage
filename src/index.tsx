@@ -1,19 +1,19 @@
 import * as esbuild from 'esbuild-wasm';
-import 'bulmaswatch/superhero/bulmaswatch.min.css'
+import 'bulmaswatch/superhero/bulmaswatch.min.css';
 import { useState, useEffect, useRef } from "react";
 import { render } from 'react-dom';
 import { unpkgPathPlugin } from './plugins/unpkg-path-plugin';
 import { fetchPlugin } from './plugins/fetch-plugin';
 import CodeEditor from './components/code-editor';
+import Preview from './components/preview';
 
 const App = () => {
   const ref = useRef<any>();
-  const iframe = useRef<any>();
   const [input, setInput] = useState('');
   
   // this state is the output of the transpiled code from ESbuild 
   // displayed in <pre> tag
-  // const [code, setCode] = useState('');
+  const [code, setCode] = useState('');
 
   
   // esbuild wasm setup
@@ -34,9 +34,6 @@ const App = () => {
       return;
     }
 
-    // Resetting content in the iframe after each code transpile
-    iframe.current.srcdoc = html;
-
     // bundling process: this is to transpile input 
     const result = await ref.current.build({
       entryPoints: ['index.js'],
@@ -51,32 +48,8 @@ const App = () => {
       },
     });
     
-    // setCode(result.outputFiles[0].text);
-
-    iframe.current.contentWindow.postMessage(result.outputFiles[0].text, '*');
+    setCode(result.outputFiles[0].text);
   };
-
-  // iframe html
-  // html structure written for events 
-  const html = `
-    <html>
-      <head></head>
-      <body>
-        <div id="root"></div>
-        <script>
-          window.addEventListener('message', (event) => {
-            try {
-              eval(event.data);
-            } catch (err) {
-              const root = document.querySelector('#root');
-              root.innerHTML = '<div style="color: red;"><h4>Runtime Error</h4>' + err + '</div>';
-              console.error(err);
-            }
-          }, false);
-        </script>
-      </body>
-    </html>
-  `;
 
   return (
     <div>
@@ -84,20 +57,10 @@ const App = () => {
         initialValue="const x = 26;"
         onChange={(value) => setInput(value)}  
       />
-      <textarea
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-      ></textarea>
       <div>
         <button onClick={onClick}>Submit</button>
       </div>
-      {/* <pre>{code}</pre> */}
-      <iframe
-        ref={iframe}
-        title="title"
-        sandbox="allow-scripts"
-        srcDoc={html}
-      />
+      <Preview code={code} />
     </div>
   );
 };

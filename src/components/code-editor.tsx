@@ -5,6 +5,8 @@ import prettier from 'prettier';
 import parser from 'prettier/parser-babel';
 // import { editor } from 'monaco-editor';
 
+// Todo - add monaco syntax highlighter 
+
 interface CodeEditorProps {
   initialValue: string;
   onChange(value: string): void;
