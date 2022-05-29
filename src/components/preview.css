@@ -1,0 +1,23 @@
+.preview-wrapper {
+  position: relative;
+  height: 100%;
+}
+
+.preview-wrapper iframe {
+  height: 100%;
+  background-color: azure;
+}
+
+/* fake-dom element to show element on top of the 
+iframe when the user is dragging the resizable across the iframe */
+
+.react-draggable-transparent-selection .preview-wrapper:after{
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  /* background-color: rgb(71, 119, 146); */
+  opacity: 0;
+}
