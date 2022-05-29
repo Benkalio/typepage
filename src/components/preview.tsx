@@ -35,7 +35,11 @@ const Preview: React.FC<PreviewProps> = ({ code }) => {
   // Resetting content in the iframe after each code transpile
   useEffect(() => {
     iframe.current.srcdoc = html;
-    iframe.current.contentWindow.postMessage(code, '*');
+    
+    // Show code on preview with execution timeout 
+    setTimeout(() => {
+      iframe.current.contentWindow.postMessage(code, '*');
+    }, 100);
   }, [code]);
 
   return (
