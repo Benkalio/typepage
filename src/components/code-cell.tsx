@@ -10,10 +10,14 @@ const CodeCell = () => {
 
   // bundling logic: this is to transpile input  
   useEffect(() => {
-    setTimeout(async () => {
+    const timer = setTimeout(async () => {
       const output = await bundle(input)
       setCode(output);
-    }, 1000);
+    }, 1500);
+
+    return () => {
+      clearTimeout(timer);
+    }
   }, [input]);
 
   return (
