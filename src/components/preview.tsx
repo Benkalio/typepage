@@ -21,6 +21,11 @@ const html = `
           console.error(err);
         };
 
+        // Handling asynchronous error
+        window.addEventListener('error',(event) => {
+          console.log(event);
+        });
+
         window.addEventListener('message', (event) => {
           try {
             eval(event.data);
