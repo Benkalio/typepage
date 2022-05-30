@@ -23,7 +23,8 @@ const html = `
 
         // Handling asynchronous error
         window.addEventListener('error',(event) => {
-          console.log(event);
+          event.preventDefault();
+          handleError(event.error);
         });
 
         window.addEventListener('message', (event) => {
