@@ -6,14 +6,16 @@ import Resizable from "./resizable";
 
 const CodeCell = () => {
   const [input, setInput] = useState('');
+  const [err, setErr] = useState('');
   const [code, setCode] = useState('');
 
   // bundling logic: this is to transpile input  
   useEffect(() => {
     const timer = setTimeout(async () => {
       const output = await bundle(input)
-      setCode(output);
-    }, 1500);
+      setCode(output.code);
+      setErr(output.err);
+    }, 1200);
 
     return () => {
       clearTimeout(timer);
