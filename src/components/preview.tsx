@@ -53,8 +53,6 @@ const Preview: React.FC<PreviewProps> = ({ code, bundlingStatus }) => {
     }, 100);
   }, [code]);
 
-
-
   return (
     <div className="preview-wrapper">
       <iframe
