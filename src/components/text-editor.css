@@ -1,0 +1,7 @@
+/* Override bulma css on title in the editor */
+
+.w-md-editor .title{
+  line-height: unset;
+  font-size: unset;
+  font-weight: unset;
+}

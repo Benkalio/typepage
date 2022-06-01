@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import MDEditor from '@uiw/react-md-editor';
+import './text-editor.css';
 
 const TextEditor: React.FC = () => {
   const [editing, setEditing] = useState(false);
@@ -7,13 +8,13 @@ const TextEditor: React.FC = () => {
 
   useEffect(() => {
     const listener = (event: MouseEvent) => {
-      if (ref.current && event.target && ref.current.contains(event.target as Node)) {
-        console.log('element is in editor');
+      if (
+        ref.current &&
+        event.target &&
+        ref.current.contains(event.target as Node)
+      ) {
         return;
-      }
-
-      console.log('edit is outside');
-      
+      }    
       setEditing(false);
     };
     document.addEventListener('click', listener, { capture: true });
@@ -25,13 +26,13 @@ const TextEditor: React.FC = () => {
 
   if (editing) {
     return (
-      <div>
+      <div ref={ref}>
         <MDEditor />
       </div>  
     );
   }
   return (
-    <div ref={ref} onClick={() => setEditing(true)}>
+    <div onClick={() => setEditing(true)}>
       <MDEditor.Markdown source={'# Header'} />
     </div>
   );
