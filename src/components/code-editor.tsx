@@ -26,7 +26,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ onChange, initialValue }) => {
     });
 
     // spaces for tabs on code editor
-    monacoEditor.getModel()?.updateOptions({ tabSize: 2 });
+    // monacoEditor.getModel()?.updateOptions({ tabSize: 2 });
   };
 
   //Format code snippet
