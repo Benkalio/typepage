@@ -1,38 +1,46 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
+import { useActions } from '../hooks/use-actions';
+
 import bundle from '../bundler';
+import { Cell } from '../state';
 import CodeEditor from './code-editor';
 import Preview from './preview';
-import Resizable from "./resizable";
+import Resizable from './resizable';
 
-const CodeCell = () => {
-  const [input, setInput] = useState('');
+interface CodeCellProps {
+  cell: Cell;
+}
+
+const CodeCell: React.FC<CodeCellProps> = ({ cell }) => {
   const [err, setErr] = useState('');
   const [code, setCode] = useState('');
 
-  // bundling logic: this is to transpile input  
+  const { updateCell } = useActions();
+
+  // bundling logic: this is to transpile input
   useEffect(() => {
     const timer = setTimeout(async () => {
-      const output = await bundle(input)
+      const output = await bundle(cell.content);
       setCode(output.code);
       setErr(output.err);
     }, 1200);
 
     return () => {
       clearTimeout(timer);
-    }
-  }, [input]);
+    };
+  }, [cell.content]);
 
   return (
     <Resizable direction="vertical">
-      <div style={{height: '100%', display: 'flex', flexDirection: 'row'}}>
+      <div style={{ height: '100%', display: 'flex', flexDirection: 'row' }}>
         <Resizable direction="horizontal">
           <CodeEditor
-            initialValue="const x = 26;"
-            onChange={(value) => setInput(value)}  
+            initialValue={cell.content}
+            onChange={(value) => updateCell(cell.id, value)}
           />
         </Resizable>
         <Preview code={code} bundlingStatus={err} />
-        </div>
+      </div>
     </Resizable>
   );
 };
