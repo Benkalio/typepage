@@ -20,9 +20,9 @@ const initialState: CellsState = {
   data: {},
 };
 
-// Using immer to help with returning the updated states
+// Using Immer to help with returning the updated states
 // that's why the produce function is used.
-// Read more => https://www.npmjs.com/package/immer
+// Read more => https://immerjs.github.io
 const reducer = produce((state: CellsState = initialState, action: Action) => {
   switch (action.type) {
     case ActionType.UPDATE_CELL:
@@ -31,7 +31,9 @@ const reducer = produce((state: CellsState = initialState, action: Action) => {
       state.data[id].content = content;
       return;
     case ActionType.DELETE_CELL:
-      return state;
+      delete state.data[action.payload];
+      state.order = state.order.filter((id) => id !== action.payload);
+      return;
     case ActionType.MOVE_CELL:
       return state;
     case ActionType.INSERT_CELL_BEFORE:
