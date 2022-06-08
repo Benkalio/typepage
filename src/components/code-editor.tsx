@@ -1,11 +1,11 @@
 import { useRef } from 'react';
-import './code.editor.css';
+import './styles/code.editor.css';
 import MonacoEditor, { EditorDidMount } from '@monaco-editor/react';
 import prettier from 'prettier';
 import parser from 'prettier/parser-babel';
 // import { editor } from 'monaco-editor';
 
-// Todo - add monaco syntax highlighter 
+// Todo - add monaco syntax highlighter
 
 interface CodeEditorProps {
   initialValue: string;
@@ -33,33 +33,36 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ onChange, initialValue }) => {
   const onFormatClick = () => {
     // get current value from editor
     const unformatted = editorRef.current.getModel().getValue();
-    
+
     // format that value
-    const formatted = prettier.format(unformatted, {
-      parser: 'babel',
-      plugins: [parser],
-      useTabs: false,
-      semi: true,
-      singleQuote: true
-    }).replace(/\n$/, '');
+    const formatted = prettier
+      .format(unformatted, {
+        parser: 'babel',
+        plugins: [parser],
+        useTabs: false,
+        semi: true,
+        singleQuote: true,
+      })
+      .replace(/\n$/, '');
 
     // set the formatted value back in the editor
     editorRef.current.setValue(formatted);
-  }
+  };
 
   return (
     <div className="editor-wrapper">
       <button
         className="button button-format is-primary is-small"
-        onClick={onFormatClick}>
+        onClick={onFormatClick}
+      >
         Format
       </button>
       <MonacoEditor
         editorDidMount={onEditorDidMount}
         value={initialValue} //initial value of the interface
-        theme='dark'
-        language='javascript'
-        height='100%'
+        theme="dark"
+        language="javascript"
+        height="100%"
         options={{
           wordWrap: 'on',
           minimap: { enabled: false },
@@ -72,7 +75,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ onChange, initialValue }) => {
         }}
       />
     </div>
-  );  
+  );
 };
 
 export default CodeEditor;

@@ -1,5 +1,5 @@
-import { useEffect, useRef } from "react";
-import './preview.css';
+import { useEffect, useRef } from 'react';
+import './styles/preview.css';
 
 interface PreviewProps {
   code: string;
@@ -7,7 +7,7 @@ interface PreviewProps {
 }
 
 // iframe html
-// html structure written for events 
+// html structure written for events
 const html = `
   <html>
     <head>
@@ -46,8 +46,8 @@ const Preview: React.FC<PreviewProps> = ({ code, bundlingStatus }) => {
   // Resetting content in the iframe after each code transpile
   useEffect(() => {
     iframe.current.srcdoc = html;
-    
-    // Show code on preview with execution timeout 
+
+    // Show code on preview with execution timeout
     setTimeout(() => {
       iframe.current.contentWindow.postMessage(code, '*');
     }, 100);
