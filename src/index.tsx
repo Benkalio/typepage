@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import 'bulmaswatch/superhero/bulmaswatch.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
@@ -19,4 +19,8 @@ const App = () => {
   );
 };
 
-render(<App />, document.querySelector('#root'));
+const container = document.getElementById('root');
+const root = createRoot(container!);
+
+root.render(<App />);
+// render(<App />, document.querySelector('#root'));
