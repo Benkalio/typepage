@@ -1,3 +1,4 @@
+import React from 'react';
 import { render } from 'react-dom';
 import 'bulmaswatch/superhero/bulmaswatch.min.css';
 import { Provider } from 'react-redux';
