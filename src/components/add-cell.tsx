@@ -3,13 +3,16 @@ import { useActions } from '../hooks/use-actions';
 
 interface AddCellProps {
   nextCellId: string | null;
+  forceVisible?: boolean;
 }
 
-const AddCell: React.FC<AddCellProps> = ({ nextCellId }) => {
+const AddCell: React.FC<AddCellProps> = ({ forceVisible, nextCellId }) => {
   const { insertCellBefore } = useActions();
 
   return (
-    <div className="add-cell">
+    /* forceVisible helps to show the code and text buttons when there are no visible cells */
+
+    <div className={`add-cell ${forceVisible && 'force-visible'}`}>
       <div className="add-buttons">
         <button
           className="button is-rounded is is-primary is-small"
