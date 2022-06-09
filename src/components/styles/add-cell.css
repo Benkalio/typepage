@@ -2,6 +2,7 @@
   position: relative;
   opacity: 0;
   transition: opacity 0.3s ease-in 0.2s;
+  margin: 10px 0;
 }
 
 .add-cell:hover {
@@ -29,5 +30,5 @@
 }
 
 .add-cell .add-buttons button {
-  margin: 0 30px;
+  margin: 0 35px;
 }
