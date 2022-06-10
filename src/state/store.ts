@@ -5,7 +5,7 @@ import { ActionType } from './action-types';
 
 export const store = createStore(reducers, {}, applyMiddleware(thunk));
 
-// manually testing dispatch store
+// manually dispatching store
 store.dispatch({
   type: ActionType.INSERT_CELL_AFTER,
   payload: {
