@@ -35,7 +35,7 @@ const reducer = produce(
         return state;
     }
   },
-  initialState
+  initialState //to solve the undefined issue in bundles code-cell.tsx
 );
 
 export default reducer;
