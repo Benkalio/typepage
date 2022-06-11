@@ -14,13 +14,12 @@ interface CodeCellProps {
 const CodeCell: React.FC<CodeCellProps> = ({ cell }) => {
   const { updateCell, createBundle } = useActions();
   const bundle = useTypedSelector((state) => state.bundles[cell.id]);
-  console.log(bundle);
 
   // bundling logic: this is to transpile input
   useEffect(() => {
     const timer = setTimeout(async () => {
       createBundle(cell.id, cell.content);
-    }, 1200);
+    }, 750);
 
     return () => {
       clearTimeout(timer);
@@ -42,7 +41,7 @@ const CodeCell: React.FC<CodeCellProps> = ({ cell }) => {
             onChange={(value) => updateCell(cell.id, value)}
           />
         </Resizable>
-        {/* <Preview code={code} bundlingStatus={err} /> */}
+        {bundle && <Preview code={bundle.code} bundlingStatus={bundle.err} />}
       </div>
     </Resizable>
   );
